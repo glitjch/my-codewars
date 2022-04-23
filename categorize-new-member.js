@@ -15,7 +15,15 @@ output = ["Open", "Open", "Senior", "Open", "Open", "Senior"]
 */
 
 function openOrSenior(data){
-  // ...
+  const result = [];
+  if (data && Array.isArray(data)) {
+    data.forEach(member => {
+      member[0] >= 55 && member[1] > 7
+        ? result.push('Senior')
+        : result.push('Open')
+    })
+  }
+  return result;
 }
 
 openOrSenior([[45, 12],[55,21],[19, -2],[104, 20]]),['Open', 'Senior', 'Open', 'Senior']
