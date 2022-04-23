@@ -16,17 +16,21 @@ Example
 function duplicateCount(text){
   let count = 0;
   if (text) {
-    const originalTextLowerCase = text.toLowerCase().split("")
-    const uniqueList = originalTextLowerCase.filter((letter, index, self) => {
-      return self.indexOf(letter) === index;
-    })
-    for (const letter of uniqueList) {
-      let letterIndex = originalTextLowerCase.indexOf(letter)
-      if (originalTextLowerCase.indexOf(letter, letterIndex +1) > 0) {
-        count++
-      }
-    }
+    
+    const set = new Set()
+    const set2 = new Set()
 
+    for (let letter of text) {
+      if (set.has(letter) ) {
+        if (!set2.has(letter)) {
+          set2.add(letter)
+          count++
+        }
+      } else {
+        set.add(letter)
+      }
+
+    }
   }
   return count;
 }
