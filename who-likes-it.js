@@ -25,4 +25,35 @@ describe('example tests', function() {
 
 function likes(names) {
   
+  names.length < 2 ? suffix = " likes this" : suffix = " like this";
+  let prefix = "";
+
+  if (names.length === 0) {
+    prefix = "no one"; 
+  }
+
+  if (names.length === 1) {
+    prefix = names[0];
+  }
+
+  if (names.length === 2) {
+    prefix = names[0] + " and " + names[1];
+  }
+  
+  if (names.length === 3) {
+    prefix = names[0] + ", " + names[1] + " and " + names[2]
+  }
+  
+  if (names.length > 3) {
+    prefix = names[0] + ", " + names[1] + ` and ${names.length - 2} others`; 
+  }
+
+  return prefix + suffix;
 }
+
+console.log(likes([]))
+console.log(likes(['Peter']))
+
+console.log(likes(['Jacob', 'Alex']))
+console.log(likes(['Max', 'John', 'Mark']))
+console.log(likes(['Alex', 'Jacob', 'Mark', 'Max']))
