@@ -31,14 +31,9 @@ Test.assertEquals(chain(2, [add, mult]), 360, "Error: chain function does not wo
  */
 
 function chain(input, fs) {
-  let someVal = null;
-  fs.forEach(f => {
-    !someVal
-      ?someVal = f(input)
-      :someVal = f(someVal)
-  })
-  return someVal;
-  }
+  let result = fs.reduce((input, f) => f(input), input)  
+  return result;
+}
 
 
   function add(num) {
