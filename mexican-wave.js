@@ -31,5 +31,11 @@ Test.assertDeepEquals(wave(" gap "), result, "Should return: '"+result+"'");
  */
 
 function wave(str){
-  
+  const finalArr = []
+  for (let i = 0; i < str.length; i++ ) {
+    if (str[i] === " ") continue;
+    finalArr.push(Array.from(str, (letter, index) => index === i ? letter.toUpperCase(): letter.toLowerCase()).join(""))
 }
+return finalArr
+}
+console.log(wave("hello"))
