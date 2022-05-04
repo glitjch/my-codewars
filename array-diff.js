@@ -12,9 +12,7 @@ arrayDiff([1,2,2,2,3],[2]) == [1,3]
 
 
 function arrayDiff(a, b) {
-  return a.filter(anum => {
-    return !b.includes(anum);
-  });
+  return a.filter(anum => !b.includes(anum));
 };
 
 console.log(arrayDiff([1,2,2], [2]))
