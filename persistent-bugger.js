@@ -9,25 +9,17 @@ For example (Input --> Output):
 FUNDAMENTALSNUMBERS
  */
 function persistence(num, count = 0) {
-  if (num.toString().length === 1) {
-    return count;
-  } 
-
+  if (num.toString().length === 1) return count;
+  
   const numArr = num.toString().split("");
-  const persistInstance = numArr.reduce((acc,cur) => {
-    return acc * cur;
-  }, 1);
+  const persistInstance = numArr.reduce((acc, cur) => acc * cur, 1);
 
-  const numberOfDigits = persistInstance.toString().length;
-  if (numberOfDigits !== 1) {
-    return persistence(persistInstance, count += 1);
-  }
-  count++
-  return count;
-
+  return persistInstance.toString().length !== 1 
+    ? persistence(persistInstance, count += 1) 
+    : count + 1;
 };
 
-console.log(persistence(4))
+console.log(persistence(999))
 /**
  * const chai = require("chai");
 const assert = chai.assert;
