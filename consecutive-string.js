@@ -25,13 +25,18 @@ consecutive strings : follow one after another without an interruption
  */
 
 function longestConsec(strarr, k) {
-  const newArr = [];
-  
+  if (k < 0) return "";
+  const combinedStr = [];
+  const strLength = [];
+
   for (let i = 0; i <= strarr.length - k; i++) {
-    newArr.push(strarr.slice(i, k+i));
+    combinedStr.push(strarr.slice(i, k+i).join(""));
+    strLength.push(strarr.slice(i, k+i).join("").length);
   }
-  return newArr;
-}
+
+  const indexOfMax = strLength.indexOf(Math.max(...strLength)); 
+  return combinedStr[indexOfMax] || "";
+};
 
 console.log(longestConsec(["zone", "abigail", "theta", "form", "libe", "zas"], 2))
 /**
