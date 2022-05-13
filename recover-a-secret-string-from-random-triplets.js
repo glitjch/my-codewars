@@ -11,38 +11,39 @@ You can assume nothing about the triplets given to you other than that they are 
  */
 
 const recoverSecret = function(triplets) {
+  let secretString = "";
   const stringConcat = triplets.join("").split(",").join("");
   const [...uniqueSet] = new Set(stringConcat);
-  let secretString = "";
 
-  // ['t', 'u', 'p','w', 'h', 'i', 's', 'a']
-
+  // iterate uniqueSet to address random order of letters
   for (let secret = 0; secret < uniqueSet.length; secret++) {
-
-    // iterate through each letter
     uniqueSet.forEach(letter => {
-      let highestIndexOfLetter = 0;
+      let firstLetter = true;
+      let previousLetters = [];
 
       // Iterate each triplet with the one given letter
       triplets.forEach(triplet => {
         if (triplet.includes(letter)) {
           for (let i = 0; i < 3; i++){
             if (i > 0 && triplet[i] === letter) {
-              highestIndexOfLetter++;
-              if (triplet[i-1] === secretString[secret] && !secretString.includes(letter)) secretString += letter
+              firstLetter = false;
+              previousLetters.push(triplet[i -1])
             }
           }
-        }  
+        } 
       });
-      // if the letter is only found in index 0 it is the first letter!  
-      if (highestIndexOfLetter === 0 && !secretString.includes(letter)) {
-        secretString += letter;
+      
+      // Determines which preceding letters are already in secret string
+      const hasLettersInSecretStr = previousLetters.filter(prev => secretString.includes(prev));
+      
+      if (!secretString.includes(letter)) {
+        // Letter found only at index 0 is the first letter!  
+        if (firstLetter) return secretString += letter;
+        // Letter, whose previous letters are ALL included in secret string, is the next letter.
+        if (previousLetters.length === hasLettersInSecretStr.length ) secretString += letter;
       }
-      console.log("secret", secret, letter, secretString)
     });
-    
-  }
-  
+  };
   
   return secretString;
 };
@@ -53,6 +54,8 @@ const recoverSecret = function(triplets) {
 // for each unique letter, boolean each triplet to compare if 1. there is a letter before it within the triplet, and 2. if yes, is that previous letter one index below the current?
 // if there is no letter preceding, assign that letter to index 0, as the first letter.
 // if there is a preceding letter, and that preceding letter matches the index count, assign the unique letter with the index +1 and increase index count.
+
+  // ['t', 'u', 'p','w', 'h', 'i', 's', 'a']
 
 console.log(recoverSecret(
   [
