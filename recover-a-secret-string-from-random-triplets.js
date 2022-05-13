@@ -13,37 +13,39 @@ You can assume nothing about the triplets given to you other than that they are 
 const recoverSecret = function(triplets) {
   const stringConcat = triplets.join("").split(",").join("");
   const [...uniqueSet] = new Set(stringConcat);
-  
-  let indexCount = 0;
   let secretString = "";
 
-  // iterate through each letter
-  uniqueSet.forEach(letter => {
-    // Track letter index, because if it is anything else before 0, then it CANNOT be the first letter
-    let highestIndexOfLetter = 0;
+  // ['t', 'u', 'p','w', 'h', 'i', 's', 'a']
 
-    // Iterate each triplet with the one given letter
-    triplets.forEach(triplet => {
+  for (let secret = 0; secret < uniqueSet.length; secret++) {
 
-      // Check only triplets containing that letter
-      if (triplet.includes(letter)) {
-        // Iterate each element in triplet
-        for (let i = 0; i < 3; i++){
-          // Check if the letter exists after index 0
-          if (i > highestIndexOfLetter && triplet[i] === letter) highestIndexOfLetter++
-        }
-      }  
-    })
+    // iterate through each letter
+    uniqueSet.forEach(letter => {
+      let highestIndexOfLetter = 0;
+
+      // Iterate each triplet with the one given letter
+      triplets.forEach(triplet => {
+        if (triplet.includes(letter)) {
+          for (let i = 0; i < 3; i++){
+            if (i > 0 && triplet[i] === letter) {
+              highestIndexOfLetter++;
+              if (triplet[i-1] === secretString[secret] && !secretString.includes(letter)) secretString += letter
+            }
+          }
+        }  
+      });
+      // if the letter is only found in index 0 it is the first letter!  
+      if (highestIndexOfLetter === 0 && !secretString.includes(letter)) {
+        secretString += letter;
+      }
+      console.log("secret", secret, letter, secretString)
+    });
     
-    // if the letter is only found in index 0 it is the first letter!  
-    if (highestIndexOfLetter === 0) {
-      secretString += letter;
-      indexCount++;
-    }
-    // console.log(letter, included)
-  })
+  }
+  
+  
   return secretString;
-}
+};
 
 
 // retrieve all the unique letters
