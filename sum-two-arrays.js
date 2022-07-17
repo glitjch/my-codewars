@@ -34,7 +34,7 @@ console.log(addArrays([6, 7], [-6, 7, 0]));
   it("test", () => {
 Test.assertDeepEquals(addArrays([6,7], [6,7]), [ 1, 3, 4 ])
 
-  });
+  }); 
 });
 
  */
